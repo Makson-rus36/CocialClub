@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200/","https://social-club-vchat.herokuapp.com/"})
 @RequestMapping("/v1/message")
 public class MessageController {
     private final MessageRepo messageRepo;

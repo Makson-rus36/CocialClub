@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping( "/v1/home" )
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200/","https://social-club-vchat.herokuapp.com/"})
 public class HomeController {
 
     @GetMapping

@@ -44,24 +44,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.tokenFilter = tokenFilter;
     }
 
-    /*.oauth2Login()
-                    .authorizationEndpoint()
-                        .authorizationRequestRepository( new InMemoryRequestRepository() )*/
     @Override
     protected void configure( HttpSecurity http ) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                 .antMatchers( "/oauth2/**", "/login**" ).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login()
-                .authorizationEndpoint()
-                .authorizationRequestRepository( new InMemoryRequestRepository() )
+                    .oauth2Login()
+                        .authorizationEndpoint()
+                            .authorizationRequestRepository( new InMemoryRequestRepository() )
+                    .and()
+                        .successHandler( this::successHandler )
                 .and()
-                .successHandler( this::successHandler )
+                    .exceptionHandling()
+                        .authenticationEntryPoint( this::authenticationEntryPoint )
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint( this::authenticationEntryPoint )
-                .and().logout(cust -> cust.addLogoutHandler( this::logout ).logoutSuccessHandler( this::onLogoutSuccess ));
+                    .logout(cust -> cust.addLogoutHandler( this::logout )
+                            .logoutSuccessHandler( this::onLogoutSuccess ));
         http.addFilterBefore( tokenFilter, UsernamePasswordAuthenticationFilter.class );
     }
 

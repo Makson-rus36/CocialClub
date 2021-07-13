@@ -25,7 +25,6 @@ public class InMemoryRequestRepository implements AuthorizationRequestRepository
     public void saveAuthorizationRequest( OAuth2AuthorizationRequest authorizationRequest,
                                           HttpServletRequest request, HttpServletResponse response ) {
         String state = authorizationRequest.getState();
-        //System.out.println(String.valueOf(authorizationRequest.getAttribute("name")));
         cache.put( state, authorizationRequest );
     }
 
